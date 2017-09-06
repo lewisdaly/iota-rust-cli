@@ -10,12 +10,12 @@ Develop a set of standalone Rust CLI binaries that expose wallet functionality, 
 
 ## Features:
 
->Address generation (iotawallet-generate-address <SECURITY> <KEYINDEX>)
->Balance checking (iotawallet-balance <SEED>)
->Transaction confirmation status check (iotawallet-tx-status <TXHASH>)
->Bundle details (iotawallet-bundle-show <BUNDLEHASH|TAILHASH>)
->Transaction details (iotawallet-tx-show <TXHASH>)
->Transfer (iotawallet-send <RECIPIENT> <AMOUNT>)
+- Address generation (iotawallet-generate-address <SECURITY> <KEYINDEX>)  
+- Balance checking (iotawallet-balance <SEED>)  
+- Transaction confirmation status check (iotawallet-tx-status <TXHASH>)  
+- Bundle details (iotawallet-bundle-show <BUNDLEHASH|TAILHASH>)  
+- Transaction details (iotawallet-tx-show <TXHASH>)  
+- Transfer (iotawallet-send <RECIPIENT> <AMOUNT>)  
 
 The output could just be pretty-printed JSON for the bundledetails/transactiondetails.
 Example:
