@@ -1,0 +1,92 @@
+# A yaml file for declaring CLI OPTIONS
+# ref: https://docs.rs/clap/2.26.0/clap/
+name: iotawallet
+version: "0.1"
+author: Lewis Daly <lewisdaly@me.com>
+about: A cli for interacting with iota.
+
+settings:
+  - SubcommandRequiredElseHelp
+
+# All Args must be defined in the 'args:' list where the name of the arg, is the
+# key to a Hash object
+args:
+  #TODO: not sure how this will work yet
+    - config:
+        help: load a yaml config file instead of supplying HOST manually
+        short: c
+        long: option
+        takes_value: true
+
+
+# All subcommands must be listed in the 'subcommand:' object, where the key to
+# the list is the name of the subcommand, and all settings for that command are
+# are part of a Hash object
+subcommands:
+  - generate-address:
+      about: generates address
+      version: "0.1"
+      settings:
+        - ArgRequiredElseHelp
+      args:
+        - seed:
+            short: s
+            help: <SEED> sets the seed to use
+            takes_value: true
+        # we should probably remove this, and only prompt if not provided a seed,
+        # similar to apt-get install -y - which doesn't prompt.
+        # (you don't have to enter apt-get install -n to ensure you get prompted)
+        - prompt:
+            short: p
+            help: will prompt for the seed to use
+            takes_value: true
+        - KEYINDEX:
+            help: the key index to generate
+            index: 1
+        - SECURITY:
+            help: the security level to use for address generation
+            index: 2
+      subcommands:
+        - help:
+            help: prints help for subcommand
+        - test:
+            help: controls testing features
+  - balance:
+      about: checks the balance
+      subcommands:
+        - help:
+            help: prints help for subcommand
+        - test:
+            help: controls testing features
+
+  - tx-status:
+      about: checks the status of a transaction
+      subcommands:
+        - help:
+            help: prints help for subcommand
+        - test:
+            help: controls testing features
+
+  - bundle-show:
+      about: shows details about the bundle
+      subcommands:
+        - help:
+            help: prints help for subcommand
+        - test:
+            help: controls testing features
+
+  - tx-show:
+      about: shows details about the transaction
+      subcommands:
+        - help:
+            help: prints help for subcommand
+        - test:
+            help: controls testing features
+
+  - send:
+      about: send iota to a recipient
+      subcommands:
+        - help:
+            help: prints help for subcommand
+        - test:
+            help: controls testing features
