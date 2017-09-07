@@ -7,6 +7,7 @@ Develop a set of standalone Rust CLI binaries that expose wallet functionality, 
 
 ## Links
 - https://github.com/iotaledger/iota.rs
+- https://github.com/iotaledger/iota.lib.js#standard-api
 
 ## Features:
 

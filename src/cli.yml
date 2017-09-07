@@ -12,11 +12,21 @@ settings:
 # key to a Hash object
 args:
   #TODO: not sure how this will work yet
-    - config:
-        help: load a yaml config file instead of supplying HOST manually
-        short: c
-        long: option
-        takes_value: true
+  - host:
+      short: h
+      help: Host you want to connect to. Can be DNS, IPv4 or IPv6. Defaults to localhost
+      takes_value: true
+      default_value: localhost
+  - port:
+      short: p
+      help: port of the host you want to connect to. Defaults to 14265
+      takes_value: true
+      default_value: "14265"
+  - config:
+      help: optional load a yaml config file instead of supplying HOST, PORT SANDBOX manually
+      short: c
+      long: config
+      takes_value: true
 
 
 # All subcommands must be listed in the 'subcommand:' object, where the key to
@@ -26,26 +36,29 @@ subcommands:
   - generate-address:
       about: generates address
       version: "0.1"
-      settings:
-        - ArgRequiredElseHelp
       args:
         - seed:
+            long: seed
             short: s
-            help: <SEED> sets the seed to use
+            help: Sets the seed to use. If not provided, user will be prompted for seed.
             takes_value: true
-        # we should probably remove this, and only prompt if not provided a seed,
-        # similar to apt-get install -y - which doesn't prompt.
+        # only prompt if not provided a seed, similar to apt-get install -y - which doesn't prompt.
         # (you don't have to enter apt-get install -n to ensure you get prompted)
-        - prompt:
-            short: p
-            help: will prompt for the seed to use
+        # - prompt:
+        #     short: p
+        #     help: will prompt for the seed to use
+        #     takes_value: true
+        - index:
+            long: index
+            short: i
+            help: The key index to generate. If the index is provided, the generation of the address is not deterministic.
             takes_value: true
-        - KEYINDEX:
-            help: the key index to generate
-            index: 1
-        - SECURITY:
-            help: the security level to use for address generation
-            index: 2
+
+        - security:
+            long: security
+            help: The security level to use for address generation. Can be 1, 2, or 3
+            takes_value: true
+
       subcommands:
         - help:
             help: prints help for subcommand
@@ -53,6 +66,8 @@ subcommands:
             help: controls testing features
   - balance:
       about: checks the balance
+      settings:
+        - ArgRequiredElseHelp
       subcommands:
         - help:
             help: prints help for subcommand
