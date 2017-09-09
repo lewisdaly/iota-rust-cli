@@ -56,7 +56,8 @@ subcommands:
 
         - security:
             long: security
-            help: The security level to use for address generation. Can be 1, 2, or 3
+            help: The security level to use for address generation. Can be 1, 2, or 3. Defaults to 2
+            default_value: "2"
             takes_value: true
 
       subcommands:
@@ -66,6 +67,13 @@ subcommands:
             help: controls testing features
   - balance:
       about: checks the balance
+      version: "0.1"
+      args:
+        - seed:
+            long: seed
+            short: s
+            help: Sets the seed to use. If not provided, user will be prompted for seed.
+            takes_value: true
       settings:
         - ArgRequiredElseHelp
       subcommands:
