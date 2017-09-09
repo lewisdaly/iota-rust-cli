@@ -2,11 +2,17 @@
  * Make the api request
  */
 
-use std::io::{self, Write};
-use api::futures::{Future, Stream};
-use api::hyper::Client;
-use api::hyper::Uri;
-use api::tokio_core::reactor::Core;
+extern crate serde_json;
+extern crate futures;
+extern crate hyper;
+extern crate tokio_core;
+
+use std::io::{self};
+use self::futures::{Future, Stream};
+use self::hyper::Client;
+use self::hyper::Error;
+use self::tokio_core::reactor::Core;
+use self::serde_json::Value;
 
 use api_commands::Command;
 
@@ -18,7 +24,7 @@ pub struct IotaClient {
 
 pub trait Request {
     //This will also have to take a generic command
-    fn make_request(&self, Box<Command>) -> bool;
+    fn make_request(&self, Box<Command>) -> Result<Value, Error>;
 }
 
 impl Request for IotaClient {
@@ -31,7 +37,7 @@ impl Request for IotaClient {
     // }
 
     //Implement this request
-    fn make_request(&self, command: Box<Command>) -> bool {
+    fn make_request(&self, command: Box<Command>) -> Result<Value, Error> {
         //TODO: sign the request!
 
         //TODO: we should be reusing this client object - or at core!
@@ -39,29 +45,23 @@ impl Request for IotaClient {
         let client = Client::new(&core.handle());
 
         println!("Making request! {}", command.serialize());
-        // let uri = Uri::parse(self.host).unpack();
-        // let url = self.host.parse::<Uri>().unwrap();
         let uri = "http://httpbin.org/ip".parse().unwrap();
-
-        // let work = client.get(uri).map(|res| {
-        //     println!("Response: {}", res.status());
-        //     println!("Headers: \n{}", res.headers());
-        // });
-
         let work = client.get(uri).and_then(|res| {
             println!("Response: {}", res.status());
 
-            res.body().for_each(|chunk| {
-                io::stdout()
-                    .write_all(&chunk)
-                    .map(|_| ())
-                    .map_err(From::from)
+            res.body().concat2().and_then(move |body| {
+                let v: Value = serde_json::from_slice(&body).map_err(|e| {
+                    io::Error::new(
+                        io::ErrorKind::Other,
+                        e
+                    )
+                })?;
+                println!("current IP address is {}", v["origin"]);
+                Ok(v)
             })
         });
 
-        core.run(work).unwrap();
-
-        false
+        core.run(work)
     }
 }
 

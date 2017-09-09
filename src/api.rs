@@ -3,10 +3,6 @@ use api_commands::CommandGetBalance;
 use api_commands::Command;
 use request::Request;
 
-pub extern crate futures;
-pub extern crate hyper;
-pub extern crate tokio_core;
-
 /**
  * Ref: https://github.com/iotaledger/iota.lib.js#getnewaddress
  */
@@ -23,7 +19,8 @@ pub fn balance(request: &Request, seed: &str) {
     //TODO: check we have a valid seed
 
     let command = api_commands::get_balance(seed.to_owned(), 1);
-    request.make_request(command.unwrap());
+    let response = request.make_request(command.unwrap());
+    println!("Response is: {:?}", response.unwrap());
 
     //Send the request to the api
 }
