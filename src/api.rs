@@ -1,4 +1,6 @@
 use api_commands;
+use api_commands::CommandGetBalance;
+use api_commands::Command;
 use request::Request;
 
 /**
@@ -16,9 +18,8 @@ pub fn balance(request: &Request, seed: &str) {
 
     //TODO: check we have a valid seed
 
-    let command = api_commands::get_balance(seed, 1);
-    println!("{:?}", command);
-    request.make_request();
+    let command = api_commands::get_balance(seed.to_owned(), 1);
+    request.make_request(command.unwrap());
 
     //Send the request to the api
 }

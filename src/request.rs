@@ -12,12 +12,12 @@ pub struct Client {
 
 pub trait Request {
     //This will also have to take a generic command
-    fn make_request(&self, &Command) -> bool;
+    fn make_request(&self, Box<Command>) -> bool;
 }
 
 impl Request for Client {
     //Implement this request
-    fn make_request(&self, command: &Command) -> bool {
+    fn make_request(&self, command: Box<Command>) -> bool {
         println!("Making request! {}", command.serialize());
         false
     }
