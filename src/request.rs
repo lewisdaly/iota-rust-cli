@@ -2,6 +2,8 @@
  * Make the api request
  */
 
+use api_commands::Command;
+
 //TODO: make a sandbox client if need be, and implement the Request trait!
 pub struct Client {
     pub host: &'static str,
@@ -10,12 +12,13 @@ pub struct Client {
 
 pub trait Request {
     //This will also have to take a generic command
-    fn make_request(&self) -> bool;
+    fn make_request(&self, &Command) -> bool;
 }
 
 impl Request for Client {
     //Implement this request
-    fn make_request(&self) -> bool {
+    fn make_request(&self, command: &Command) -> bool {
+        println!("Making request! {}", command.serialize());
         false
     }
 }

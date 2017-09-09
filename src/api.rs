@@ -18,6 +18,7 @@ pub fn balance(request: &Request, seed: &str) {
 
     let command = api_commands::get_balance(seed, 1);
     println!("{:?}", command);
+    request.make_request();
 
     //Send the request to the api
 }
