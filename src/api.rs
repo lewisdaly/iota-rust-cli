@@ -1,6 +1,4 @@
 use api_commands;
-use api_commands::CommandGetBalance;
-use api_commands::Command;
 use request::Request;
 
 /**

@@ -16,6 +16,8 @@ use self::serde_json::Value;
 
 use api_commands::Command;
 
+use utils::format_url;
+
 //TODO: make a sandbox client if need be, and implement the Request trait!
 pub struct IotaClient {
     pub host: &'static str,

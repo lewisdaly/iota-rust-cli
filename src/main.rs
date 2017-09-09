@@ -6,6 +6,7 @@ use clap::App;
 mod api;
 mod api_commands;
 mod request;
+mod utils;
 
 use request::IotaClient;
 
