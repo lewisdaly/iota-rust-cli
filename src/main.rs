@@ -33,7 +33,6 @@ fn main() {
             println!("Generating Address: {}", matches.value_of("seed").unwrap())
         },
         ("balance", Some(matches)) => {
-            println!("Checking balance: {}", matches.value_of("address").unwrap());
             //TODO: we can prompt user for seed here if we like!
             let address = matches.value_of("address").unwrap();
             api::balance(client, address);

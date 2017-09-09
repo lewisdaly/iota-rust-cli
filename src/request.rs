@@ -59,8 +59,6 @@ impl IotaRequest for IotaClient {
         req.set_body(json);
 
         let work = client.request(req).and_then(|res| {
-            println!("POST: {}", res.status());
-
             res.body().concat2().and_then(move |body| {
                 let v: Value = serde_json::from_slice(&body).map_err(|e| {
                     io::Error::new(

@@ -1,5 +1,9 @@
+extern crate serde_json;
+
 use api_commands;
 use request::IotaRequest;
+use self::serde_json::Value;
+use self::serde_json::ser;
 
 /**
  * Ref: https://github.com/iotaledger/iota.lib.js#getnewaddress
@@ -12,13 +16,10 @@ pub fn generate_address() {
 }
 
 pub fn balance(request: &IotaRequest, address: &str) {
-    println!("Checking balance");
 
-    //TODO: check we have a valid seed
+    //TODO: check we have a valid address
 
     let command = api_commands::get_balance(address.to_owned(), 1);
     let response = request.make_request(command.unwrap());
-    println!("Response is: {:?}", response.unwrap());
-
-    //Send the request to the api
+    println!("{:?}", response.unwrap().to_string());
 }
