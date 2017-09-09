@@ -47,7 +47,8 @@ impl Request for IotaClient {
         let client = Client::new(&core.handle());
 
         println!("Making request! {}", command.serialize());
-        let uri = "http://httpbin.org/ip".parse().unwrap();
+        let uri_string = format_url("http://".to_owned(), self.host.to_owned(), self.port, "".to_owned());
+        let uri = uri_string.parse().unwrap();
         let work = client.get(uri).and_then(|res| {
             println!("Response: {}", res.status());
 
