@@ -1,5 +1,5 @@
 use api_commands;
-use request::Request;
+use request::IotaRequest;
 
 /**
  * Ref: https://github.com/iotaledger/iota.lib.js#getnewaddress
@@ -11,12 +11,12 @@ pub fn generate_address() {
 
 }
 
-pub fn balance(request: &Request, seed: &str) {
+pub fn balance(request: &IotaRequest, address: &str) {
     println!("Checking balance");
 
     //TODO: check we have a valid seed
 
-    let command = api_commands::get_balance(seed.to_owned(), 1);
+    let command = api_commands::get_balance(address.to_owned(), 1);
     let response = request.make_request(command.unwrap());
     println!("Response is: {:?}", response.unwrap());
 

@@ -69,10 +69,10 @@ subcommands:
       about: checks the balance
       version: "0.1"
       args:
-        - seed:
-            long: seed
-            short: s
-            help: Sets the seed to use. If not provided, user will be prompted for seed.
+        - address:
+            long: address
+            short: a
+            help: The address to check the value for
             takes_value: true
       settings:
         - ArgRequiredElseHelp

@@ -1,6 +1,10 @@
 #[macro_use]
 extern crate clap;
 
+#[macro_use]
+extern crate serde_json;
+
+
 use clap::App;
 
 mod api;
@@ -15,7 +19,8 @@ fn main() {
     let matches = App::from_yaml(yaml).get_matches();
 
     //TODO: make a client or something!
-    let client = &IotaClient { host: "google.com", port: 12345 };
+    // let client = &IotaClient { host: "google.com", port: 12345 };
+    let client = &IotaClient { host: "eugene.iota.community", port: 14265 };
 
     let value = matches.value_of("balance");
     println!("{:?}", value);
@@ -31,10 +36,10 @@ fn main() {
             println!("Generating Address: {}", matches.value_of("seed").unwrap())
         },
         ("balance", Some(matches)) => {
-            println!("Checking balance: {}", matches.value_of("seed").unwrap());
+            println!("Checking balance: {}", matches.value_of("address").unwrap());
             //TODO: we can prompt user for seed here if we like!
-            let seed = matches.value_of("seed").unwrap();
-            api::balance(client, seed);
+            let address = matches.value_of("address").unwrap();
+            api::balance(client, address);
         },
         _ => println!("Other command was used")
     }
