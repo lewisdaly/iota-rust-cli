@@ -7,14 +7,14 @@ mod api;
 mod api_commands;
 mod request;
 
-use request::Client;
+use request::IotaClient;
 
 fn main() {
     let yaml = load_yaml!("cli.yml");
     let matches = App::from_yaml(yaml).get_matches();
 
     //TODO: make a client or something!
-    let client = &Client { host: "google.com", port: 12345 };
+    let client = &IotaClient { host: "google.com", port: 12345 };
 
     let value = matches.value_of("balance");
     println!("{:?}", value);

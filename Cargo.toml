@@ -5,3 +5,6 @@ authors = ["Lewis Daly <lewisdaly@me.com>"]
 
 [dependencies]
 clap = {version = "2.26.0", features = ["yaml"]}
+futures = "0.1"
+hyper = "0.11"
+tokio-core = "0.1"
