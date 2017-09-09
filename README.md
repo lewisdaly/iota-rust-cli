@@ -45,3 +45,23 @@ SUBCOMMANDS:
     help    Prints this message
     test    Controls testing features
 ```
+
+
+## Completed
+
+
+`iotawallet balance <ADDRESS>`  
+
+example:
+
+./iotawallet -h eugene.iota.community balance -a UBMZUJIEQEJOJREZEI9JQ9RFYKEIAZFYS9DQYLIZJ9SBUKNSPY9CRRRZYNEVDZDEOLMLHPJTSEFFSMQKZU9ZJRFCFZ
+
+
+## TODO:
+
+`iotawallet generate-address <SECURITY> <KEYINDEX>`  
+`iotawallet balance <ADDRESS>`  
+`iotawallet tx-status <TXHASH>`  
+`iotawallet bundle-show <BUNDLEHASH|TAILHASH>`  
+`iotawallet tx-show <TXHASH>`  
+`iotawallet send <RECIPIENT> <AMOUNT>`  

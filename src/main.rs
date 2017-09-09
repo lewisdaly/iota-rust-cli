@@ -18,18 +18,15 @@ fn main() {
     let yaml = load_yaml!("cli.yml");
     let matches = App::from_yaml(yaml).get_matches();
 
-    //TODO: make a client or something!
-    // let client = &IotaClient { host: "google.com", port: 12345 };
-    let client = &IotaClient { host: "eugene.iota.community", port: 14265 };
+    if let Some(config) = matches.value_of("config") {
+        println!("WARNING: specifying the --config argument is not yet implemented. This argument will be ignored.");
+    }
 
-    let value = matches.value_of("balance");
-    println!("{:?}", value);
+    let host = matches.value_of("host").unwrap();
+    let port: i32 = matches.value_of("port").unwrap().parse().unwrap();
 
-    // match matches.subcommand_name() {
-    //     Some("generate-address") => api::generate_address(),
-    //     Some("balance") => api::balance(),
-    //     _  => println!("Other command was used")
-    // }
+    //TODO: validate host and port
+    let client = &IotaClient { host: host.to_owned(), port: port };
 
     match matches.subcommand() {
         ("generate-address", Some(matches)) => {

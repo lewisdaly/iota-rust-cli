@@ -22,7 +22,7 @@ use utils::format_url;
 
 //TODO: make a sandbox client if need be, and implement the Request trait!
 pub struct IotaClient {
-    pub host: &'static str,
+    pub host: String,
     pub port: i32
 }
 
@@ -48,7 +48,6 @@ impl IotaRequest for IotaClient {
         let mut core = Core::new().unwrap();
         let client = Client::new(&core.handle());
 
-        println!("Making request! {}", command.serialize());
         let uri_string = format_url("http://".to_owned(), self.host.to_owned(), self.port, "".to_owned());
         let uri = uri_string.parse().unwrap();
 
