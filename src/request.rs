@@ -52,7 +52,7 @@ impl IotaRequest for IotaClient {
         let uri = uri_string.parse().unwrap();
 
         let json = command.serialize();
-        // let uri = "http://httpbin.org/post".parse()?;
+        println!("{:?}", json);
         let mut req = Request::new(Method::Post, uri);
         req.headers_mut().set(ContentType::json());
         req.headers_mut().set(ContentLength(json.len() as u64));

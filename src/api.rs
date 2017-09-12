@@ -31,9 +31,14 @@ pub fn tx_status(request: &IotaRequest, tx_hash: &str) {
     let node_response = request.make_request(node_command.unwrap()).unwrap();
 
     //TODO: we should probably make sure this response is the correct format
-    println!("{:?}", node_response["latestSolidSubtangleMilestone"]);
     //TODO: get the most recent solid milestone from node_response
-    let tip = node_response["latestSolidSubtangleMilestone"].to_string();
+    let mut tip = node_response["latestSolidSubtangleMilestone"].to_string();
+    //TODO: Deserialize properly. This will work for now
+    tip = str::replace(tip.as_str(), "\"", "");
+    tip = str::replace(tip.as_str(), "\\", "");
+
+    // let tip = serde_json::to_string(tip_json.as_str()).unwrap();
+    println!("{:?}", tip);
 
     let inclusion_command = api_commands::get_inclusion_states(tx_hash.to_owned(), tip.to_owned());
     let inclusion_response = request.make_request(inclusion_command.unwrap());

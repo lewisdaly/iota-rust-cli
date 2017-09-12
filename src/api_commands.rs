@@ -23,6 +23,7 @@ pub struct CommandGetInclusionStates {
 }
 
 impl Command for CommandGetBalance {
+    //TODO: don't serialize ourselves - use this: #[derive(Serialize, Deserialize)]
     fn serialize(&self) -> String {
         let json = json!({
             "command": self.command,
