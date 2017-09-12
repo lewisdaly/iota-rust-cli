@@ -106,6 +106,12 @@ subcommands:
 
   - tx-show:
       about: shows details about the transaction
+      version: "0.1"
+      args:
+        - tx_hash:
+            help: the hash of the transaction to check for
+      settings:
+        - ArgRequiredElseHelp
       subcommands:
         - help:
             help: prints help for subcommand
