@@ -1,21 +1,28 @@
+#[allow(dead_code)]
+
+pub trait Command {
+    //serialize the command for use in post request
+    fn serialize(&self) -> String;
+}
+
 #[derive(Debug)]
-//TODO: this struct can implement a serialize trait!
 pub struct CommandGetBalance {
     command: String,
     addresses: [String; 1],
     threshold: i32,
 }
 
-pub trait Command {
-    //But how do we make this generic?
-    // fn new([String; 1], i32) -> Self;
+pub struct CommandGetNodeInfo {
+    command: String,
+}
 
-    //serialize the command for use in post request
-    fn serialize(&self) -> String;
+pub struct CommandGetInclusionStates {
+    command: String,
+    transactions: [String; 1],
+    tips: [String; 1],
 }
 
 impl Command for CommandGetBalance {
-    
     fn serialize(&self) -> String {
         let json = json!({
             "command": self.command,
@@ -26,6 +33,28 @@ impl Command for CommandGetBalance {
     }
 }
 
+impl Command for CommandGetNodeInfo {
+    fn serialize(&self) -> String {
+        let json = json!({
+            "command": self.command,
+        });
+
+        json.to_string()
+    }
+}
+
+impl Command for CommandGetInclusionStates {
+    fn serialize(&self) -> String {
+        let json = json!({
+            "command": self.command,
+            "transactions": self.transactions,
+            "tips": self.tips,
+        });
+        json.to_string()
+    }
+}
+
+
 pub fn get_balance(address: String, threshold: i32) -> Option<Box<Command>> {
 
     //In the future, we could support multiple addresses. Just 1 for now.
@@ -33,5 +62,24 @@ pub fn get_balance(address: String, threshold: i32) -> Option<Box<Command>> {
 
     let command: CommandGetBalance = CommandGetBalance {command: "getBalances".to_owned(), addresses: addresses, threshold: threshold};
     Some(Box::new(command))
-    // CommandGetBalance { command: "getBalance".to_owned(), addresses: addresses, threshold:threshold }
+}
+
+
+pub fn get_node_info() -> Option<Box<Command>> {
+    let command: CommandGetNodeInfo = CommandGetNodeInfo { command: "getNodeInfo".to_owned() };
+
+    Some(Box::new(command))
+}
+
+
+pub fn get_inclusion_states(transaction: String, tip: String) -> Option<Box<Command>> {
+    let transactions = [transaction];
+    let tips = [tip];
+    let command: CommandGetInclusionStates = CommandGetInclusionStates {
+        command: "getInclusionStates".to_owned(),
+        transactions: transactions,
+        tips: tips
+    };
+
+    Some(Box::new(command))
 }

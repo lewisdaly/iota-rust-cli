@@ -33,9 +33,12 @@ fn main() {
             println!("Generating Address: {}", matches.value_of("seed").unwrap())
         },
         ("balance", Some(matches)) => {
-            //TODO: we can prompt user for seed here if we like!
             let address = matches.value_of("address").unwrap();
             api::balance(client, address);
+        },
+        ("tx-status", Some(matches)) => {
+            let tx_hash = matches.value_of("tx_hash").unwrap();
+            api::tx_status(client, tx_hash);
         },
         _ => println!("Other command was used")
     }

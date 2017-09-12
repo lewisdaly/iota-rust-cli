@@ -84,6 +84,12 @@ subcommands:
 
   - tx-status:
       about: checks the status of a transaction
+      version: "0.1"
+      args:
+        - tx_hash:
+            help: the hash of the transaction to check for
+      settings:
+        - ArgRequiredElseHelp
       subcommands:
         - help:
             help: prints help for subcommand
