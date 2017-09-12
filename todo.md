@@ -1,11 +1,18 @@
 # A simple way to track pending tasks...
 
 
-- Parse cli arguments somehow
-- Read hostname from environment variables
-- investigate http libraries
+## Basic commands:
+ iotawallet tx-show <TXHASH>
+ iotawallet bundle-show <BUNDLEHASH|TAILHASH>
+ iotawallet generate-address <SECURITY> <KEYINDEX> - I think this needs to be done locally. Maybe we can use the current rust api for this
+ iotawallet send <RECIPIENT_ADDRESS> <AMOUNT>
+
+
+##DONE:
+iotawallet balance <ADDRESS>
+iotawallet tx-status <TXHASH>
 
 
 
-- implement a "getCommand" tool, similar to apiCommands.js
-- implement a "makeRequest" method, which actually talks to the api, refer to utils/makeRequest.js
+Is `bundle-show` the same as findTransactions?
+And `tx-show` ?

@@ -22,6 +22,12 @@ pub struct CommandGetInclusionStates {
     tips: [String; 1],
 }
 
+#[derive(Serialize)]
+pub struct CommandGetTrytes {
+    command: String,
+    hashes: [String; 1],
+}
+
 impl Command for CommandGetBalance {
     //TODO: don't serialize ourselves - use this: #[derive(Serialize, Deserialize)]
     fn serialize(&self) -> String {
@@ -54,7 +60,6 @@ impl Command for CommandGetInclusionStates {
         json.to_string()
     }
 }
-
 
 pub fn get_balance(address: String, threshold: i32) -> Option<Box<Command>> {
 
