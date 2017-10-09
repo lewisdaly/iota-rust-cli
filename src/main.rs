@@ -17,10 +17,15 @@ extern crate serde_json;
 extern crate serde_derive;
 
 extern crate serde;
-extern crate iota_models as models;
-extern crate iota_trytes as trytes;
 extern crate alloc;
 extern crate rpassword;
+
+extern crate iota_models as models;
+extern crate iota_trytes as trytes;
+extern crate iota_sign as sign;
+//Not sure what the difference is here.
+extern crate iota_curl as curl;
+extern crate iota_curl_cpu as curl_cpu;
 
 
 use clap::App;
