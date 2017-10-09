@@ -4,6 +4,7 @@
 #![allow(unused_extern_crates)]
 
 use std::io::{stdin,stdout,Write};
+use std::str::FromStr;
 
 
 #[macro_use]
@@ -49,12 +50,21 @@ fn main() {
 
     match matches.subcommand() {
         ("generate-address", Some(matches)) => {
+            let index = match matches.value_of("index") {
+                None => None,
+                Some(index) => {
+                    let index_int: i32 = FromStr::from_str(index).unwrap();
+                    Some(index_int)
+                }
+            };
+            let security: i32 = FromStr::from_str(matches.value_of("security").unwrap()).unwrap();
+
             match matches.value_of("seed") {
                 None => {
                     let seed = rpassword::prompt_password_stdout("Enter Seed (will be hidden): ").unwrap();
-                    api::generate_address(client, &seed);
+                    api::generate_address(client, &seed, index, security);
                 }
-                Some(seed) => api::generate_address(client, seed),
+                Some(seed) => api::generate_address(client, seed, index, security),
             }
         },
         ("balance", Some(matches)) => {
