@@ -1,3 +1,9 @@
+#![feature(alloc)]
+#![allow(dead_code)]
+#![allow(unused_imports)]
+#![allow(unused_extern_crates)]
+
+
 #[macro_use]
 extern crate clap;
 
@@ -8,11 +14,17 @@ extern crate serde_json;
 extern crate serde_derive;
 
 extern crate serde;
+extern crate iota_models as models;
+extern crate iota_trytes as trytes;
+extern crate alloc;
+
+// pub use trytes::trits_to_string;
 
 use clap::App;
 
 mod api;
 mod api_commands;
+mod api_models;
 mod request;
 mod utils;
 
@@ -43,6 +55,10 @@ fn main() {
         ("tx-status", Some(matches)) => {
             let tx_hash = matches.value_of("tx_hash").unwrap();
             api::tx_status(client, tx_hash);
+        },
+        ("tx-show", Some(matches)) => {
+            let tx_hash = matches.value_of("tx_hash").unwrap();
+            api::tx_show(client, tx_hash);
         },
         _ => println!("Other command was used")
     }

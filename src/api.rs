@@ -1,9 +1,12 @@
-extern crate serde_json;
-
 use api_commands;
+use api_models;
 use request::IotaRequest;
-use self::serde_json::Value;
-use self::serde_json::ser;
+use models::*;
+use alloc::Vec;
+use trytes::string::char_to_trits;
+use trytes::Trit;
+use serde_json;
+
 
 /**
  * Ref: https://github.com/iotaledger/iota.lib.js#getnewaddress
@@ -52,11 +55,16 @@ pub fn tx_show(request: &IotaRequest, tx_hash: &str) {
     let command = api_commands::get_trytes(tx_hash.to_owned());
     let response = request.make_request(command.unwrap()).unwrap();
 
-    let trytes  = response["trytes"].to_string();
+    //Assume just 1 for now
+    let mut trytes  = response["trytes"][0].to_string();
+    //TODO: Deserialize properly. This will do for now
+    trytes = str::replace(trytes.as_str(), "\"", "");
+    trytes = str::replace(trytes.as_str(), "\\", "");
 
-    println!("{:?}", trytes);
+    let tx: Vec<Trit> = trytes.as_str().chars().flat_map(char_to_trits).cloned().collect();
 
-
-    //Then do rust lib magic
-
+    //Get a TransactionView struct from the trits
+    let txview = TransactionView::from_trits(tx.as_slice()).unwrap();
+    let tx_model = api_models::TransactionModel::from_transaction_view(&txview).unwrap();
+    println!("{:?}", serde_json::to_string(&tx_model).unwrap())
 }
