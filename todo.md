@@ -2,13 +2,12 @@
 
 
 ## Basic commands:
- iotawallet tx-show <TXHASH>
-  #tx-show is essentially `getTrytes` + transactionObject. You'll need https://github.com/iotaledger/iota.rs/blob/master/models/src/v1/view.rs for this.
  iotawallet bundle-show <BUNDLEHASH|TAILHASH>
  iotawallet generate-address <SECURITY> <KEYINDEX> - I think this needs to be done locally. Maybe we can use the current rust api for this
  iotawallet send <RECIPIENT_ADDRESS> <AMOUNT>
 
 ## Other
+- in api_commands, add defaults for "command" field in structs
 - refactor with models, and proper deserialization
 - read config from env variables
 - better error handling
@@ -17,11 +16,14 @@
 - better imports
 
 
-##DONE:
+## Cleanup:
 iotawallet balance <ADDRESS>
 iotawallet tx-status <TXHASH>
+iotawallet tx-show <TXHASH> (I think this is kind of working...)
 
 
+
+## DONE:
 
 
 

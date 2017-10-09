@@ -62,6 +62,7 @@ pub fn get_balance(address: String, threshold: i32) -> Option<Box<Command>> {
     //In the future, we could support multiple addresses. Just 1 for now.
     let addresses = [address];
 
+    //TODO: implement default for structs
     let command: CommandGetBalance = CommandGetBalance {command: "getBalances".to_owned(), addresses: addresses, threshold: threshold};
     Some(Box::new(command))
 }
