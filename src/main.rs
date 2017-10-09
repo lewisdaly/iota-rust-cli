@@ -3,6 +3,8 @@
 #![allow(unused_imports)]
 #![allow(unused_extern_crates)]
 
+use std::io::{stdin,stdout,Write};
+
 
 #[macro_use]
 extern crate clap;
@@ -17,8 +19,8 @@ extern crate serde;
 extern crate iota_models as models;
 extern crate iota_trytes as trytes;
 extern crate alloc;
+extern crate rpassword;
 
-// pub use trytes::trits_to_string;
 
 use clap::App;
 
@@ -29,6 +31,7 @@ mod request;
 mod utils;
 
 use request::IotaClient;
+
 
 fn main() {
     let yaml = load_yaml!("cli.yml");
@@ -46,7 +49,13 @@ fn main() {
 
     match matches.subcommand() {
         ("generate-address", Some(matches)) => {
-            println!("Generating Address: {}", matches.value_of("seed").unwrap())
+            match matches.value_of("seed") {
+                None => {
+                    let seed = rpassword::prompt_password_stdout("Enter Seed (will be hidden): ").unwrap();
+                    api::generate_address(client, &seed);
+                }
+                Some(seed) => api::generate_address(client, seed),
+            }
         },
         ("balance", Some(matches)) => {
             let address = matches.value_of("address").unwrap();
@@ -62,5 +71,4 @@ fn main() {
         },
         _ => println!("Other command was used")
     }
-
 }

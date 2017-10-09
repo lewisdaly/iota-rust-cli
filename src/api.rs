@@ -11,8 +11,9 @@ use serde_json;
 /**
  * Ref: https://github.com/iotaledger/iota.lib.js#getnewaddress
  */
-pub fn generate_address() {
-    println!("Generating address!");
+pub fn generate_address(request: &IotaRequest, seed: &str) {
+// pub fn generate_address(request: &IotaRequest, seed: &str, key_index: Option<i32>) {
+    println!("Generating address! {:?}", seed);
 
     //TODO: validate seed
 

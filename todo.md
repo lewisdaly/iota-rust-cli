@@ -2,9 +2,9 @@
 
 
 ## Basic commands:
- iotawallet bundle-show <BUNDLEHASH|TAILHASH>
- iotawallet generate-address <SECURITY> <KEYINDEX> - I think this needs to be done locally. Maybe we can use the current rust api for this
- iotawallet send <RECIPIENT_ADDRESS> <AMOUNT>
+iotawallet generate-address <SECURITY> <KEYINDEX> - I think this needs to be done locally. Maybe we can use the current rust api for this
+iotawallet bundle-show <BUNDLEHASH|TAILHASH>
+iotawallet send <RECIPIENT_ADDRESS> <AMOUNT>
 
 ## Other
 - in api_commands, add defaults for "command" field in structs

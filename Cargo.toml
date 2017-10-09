@@ -14,3 +14,4 @@ serde_derive = "1.0"
 iota-curl = { git = "https://github.com/iotaledger/iota.rs", rev = "2be8c70" }
 iota-models = { git = "https://github.com/iotaledger/iota.rs", rev = "2be8c70" }
 iota-trytes = { git = "https://github.com/iotaledger/iota.rs", rev = "2be8c70", features = ["alloc"] }
+rpassword = "1.0.0"
