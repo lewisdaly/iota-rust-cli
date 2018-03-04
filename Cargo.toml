@@ -1,5 +1,5 @@
 [package]
-name = "iotawallet"
+name = "iota-api"
 version = "0.1.0"
 authors = ["Lewis Daly <lewisdaly@me.com>"]
 
