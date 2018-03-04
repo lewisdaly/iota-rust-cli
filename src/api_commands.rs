@@ -45,10 +45,15 @@ pub enum FindTransactionsType {
 //ref: https://iota.readme.io/reference#findtransactions
 pub struct CommandFindTransactions {
     command: String,
-    bundles: Option<[String; 1]>,   //optional, just 1 required
-    addresses: Option<[String; 1]>, //optional, just 1 required
-    tags: Option<[String; 1]>,      //optional, just 1 required
-    approvees: Option<[String; 1]>, //optional, just 1 required
+    //Just one of the following fields is required:
+    #[serde(skip_serializing_if = "Option::is_none")]
+    bundles: Option<[String; 1]>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    addresses: Option<[String; 1]>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    tags: Option<[String; 1]>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    approvees: Option<[String; 1]>,
 
 }
 
