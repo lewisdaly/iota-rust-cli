@@ -35,5 +35,9 @@ pub mod api_commands;
 pub mod api_models;
 pub mod request;
 pub mod utils;
+pub mod enums;
 
 pub use request::IotaClient;
+
+//Testing out how enums work...
+pub use enums::TestEnum;
