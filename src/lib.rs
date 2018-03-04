@@ -2,6 +2,7 @@
 #![allow(dead_code)]
 #![allow(unused_imports)]
 #![allow(unused_extern_crates)]
+#![feature(exclusive_range_pattern)]
 
 use std::io::{stdin,stdout,Write};
 use std::str::FromStr;
@@ -15,6 +16,9 @@ extern crate serde_json;
 
 #[macro_use]
 extern crate serde_derive;
+
+#[macro_use]
+extern crate hyper;
 
 extern crate serde;
 extern crate alloc;

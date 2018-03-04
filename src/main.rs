@@ -16,6 +16,10 @@ extern crate serde_json;
 #[macro_use]
 extern crate serde_derive;
 
+#[macro_use]
+extern crate hyper;
+
+
 extern crate serde;
 extern crate alloc;
 extern crate rpassword;

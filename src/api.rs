@@ -18,17 +18,22 @@ use sign::iss::key;
 use sign::iss::digest_key;
 use sign::iss::address;
 
+extern crate hyper;
+
+use self::hyper::Error;
+use self::serde_json::Value;
+
 
 /**
  * Ref: https://iota.readme.io/reference#findtransactions
  */
-pub fn find_transactions(request: &IotaRequest, transactionType: FindTransactionsType, param: String) {
+pub fn find_transactions(request: &IotaRequest, transactionType: FindTransactionsType, param: String) -> Result<Value, Error> {
     println!("Finding transaction for param: {:?}", param);
 
     let command = api_commands::find_transactions(transactionType, param);
     let response = request.make_request(command.unwrap());
-    println!("{:?}", response.unwrap().to_string());
-
+    // println!("response: {:?}", response.unwrap().to_string());
+    return response;
 }
 
 

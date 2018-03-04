@@ -12,6 +12,7 @@ serde = "1.0"
 serde_json = "1.0"
 serde_derive = "1.0"
 rpassword = "1.0.0"
+reqwest = {git = "https://github.com/seanmonstar/reqwest" }
 
 iota-curl = { git = "https://github.com/iotaledger/iota.rs", rev = "2be8c70" }
 iota-curl-cpu = { git = "https://github.com/iotaledger/iota.rs", rev = "2be8c70" }
