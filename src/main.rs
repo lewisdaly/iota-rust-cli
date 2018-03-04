@@ -35,6 +35,9 @@ mod api_commands;
 mod api_models;
 mod request;
 mod utils;
+pub mod enums;
+pub use enums::TestEnum;
+
 
 use request::IotaClient;
 
