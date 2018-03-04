@@ -33,6 +33,25 @@ pub struct CommandGetTrytes {
     hashes: [String; 1],
 }
 
+//findTransactions takes an array of budnels, addresses, tags or approvees
+pub enum FindTransactionsType {
+    Bundle,
+    Addresses,
+    Tags,
+    Approvees
+}
+
+#[derive(Serialize)]
+//ref: https://iota.readme.io/reference#findtransactions
+pub struct CommandFindTransactions {
+    command: String,
+    bundles: Option<[String; 1]>,   //optional, just 1 required
+    addresses: Option<[String; 1]>, //optional, just 1 required
+    tags: Option<[String; 1]>,      //optional, just 1 required
+    approvees: Option<[String; 1]>, //optional, just 1 required
+
+}
+
 impl Command for CommandGetBalance {
     fn serialize(&self) -> String {
         serde_json::to_string(&self).unwrap()
@@ -56,6 +75,14 @@ impl Command for CommandGetTrytes {
         serde_json::to_string(&self).unwrap()
     }
 }
+
+
+impl Command for CommandFindTransactions {
+    fn serialize(&self) -> String {
+        serde_json::to_string(&self).unwrap()
+    }
+}
+
 
 pub fn get_balance(address: String, threshold: i32) -> Option<Box<Command>> {
 
@@ -92,4 +119,31 @@ pub fn get_trytes(hash: String) -> Option<Box<Command>> {
     let command: CommandGetTrytes = CommandGetTrytes { command: "getTrytes".to_owned(), hashes: hashes};
 
     Some(Box::new(command))
+}
+
+
+pub fn find_transactions(transaction_type: FindTransactionsType, param: String) -> Option<Box<Command>> {
+
+    let command: CommandFindTransactions = CommandFindTransactions {
+        command: "findTransactions".to_owned(),
+        //TODO: There's probably an easier way...
+        bundles: match transaction_type {
+            FindTransactionsType::Bundle => Some([param.to_owned()]),
+            _ => None
+        },
+        addresses: match transaction_type {
+            FindTransactionsType::Addresses => Some([param.to_owned()]),
+            _ => None
+        },
+        tags: match transaction_type {
+            FindTransactionsType::Tags => Some([param.to_owned()]),
+            _ => None
+        },
+        approvees: match transaction_type {
+            FindTransactionsType::Approvees => Some([param.to_owned()]),
+            _ => None
+        }
+    };
+
+    return Some(Box::new(command));
 }

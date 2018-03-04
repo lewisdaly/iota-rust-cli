@@ -1,5 +1,6 @@
 use api_commands;
 use api_models;
+use api_commands::FindTransactionsType;
 use request::IotaRequest;
 use models::*;
 use alloc::Vec;
@@ -18,6 +19,17 @@ use sign::iss::digest_key;
 use sign::iss::address;
 
 
+/**
+ * Ref: https://iota.readme.io/reference#findtransactions
+ */
+pub fn find_transactions(request: &IotaRequest, transactionType: FindTransactionsType, param: String) {
+    println!("Finding transaction for param: {:?}", param);
+
+    let command = api_commands::find_transactions(transactionType, param);
+    let response = request.make_request(command.unwrap());
+    println!("{:?}", response.unwrap().to_string());
+
+}
 
 
 /**
