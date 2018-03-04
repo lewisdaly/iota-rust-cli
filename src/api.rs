@@ -56,9 +56,6 @@ fn new_address(seed: Vec<Trit>, index: isize, security: usize) -> Vec<Trit> {
     let mut key_space = vec![0; KEY_LENGTH];
     let mut digest_space = vec![0; DIGEST_LENGTH];
     let mut address_space = vec![0; ADDRESS_LENGTH];
-    // let mut sig_address_space = vec![0; ADDRESS_LENGTH];
-    // let mut signature_space = vec![0; SIGNATURE_LENGTH];
-
 
     subseed::<CpuCurl<Trit>>(&seed, index, &mut key_space, &mut c1);
     c1.reset();
