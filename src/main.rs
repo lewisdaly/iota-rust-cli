@@ -54,7 +54,7 @@ fn main() {
     let port: i32 = matches.value_of("port").unwrap().parse().unwrap();
 
     //TODO: validate host and port
-    let client = &IotaClient { host: host.to_owned(), port: port };
+    let client = &IotaClient { protocol: "http://".to_owned(), host: host.to_owned(), port: port };
 
     match matches.subcommand() {
         ("generate-address", Some(matches)) => {
